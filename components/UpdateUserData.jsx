@@ -12,8 +12,10 @@ import {
 import { Field, FieldGroup } from "@/components/ui/field"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
+import { useRouter } from "next/navigation"
 
 const UpdateUserData = ({user}) => {
+  const router = useRouter();
     const handleUpdateUser = async (e) => {
         e.preventDefault()
         const formData = new FormData(e.currentTarget);
@@ -28,6 +30,11 @@ const UpdateUserData = ({user}) => {
         })
         const result = await res.json();
         console.log('result form server: ' , result)
+
+        if(result.modifiedCount > 0){
+          console.log('user update!')
+          router.refresh()
+        }
     }
     return (
         <div>
